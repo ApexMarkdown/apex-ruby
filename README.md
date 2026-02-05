@@ -16,14 +16,14 @@ Before installing the gem, you must have the **cmark-gfm** C library available o
   ```
 - **Other platforms:** Install the `cmark-gfm` package for your distribution and ensure development headers and `pkg-config` are available. See [cmark-gfm](https://github.com/github/cmark-gfm) for build instructions.
 
-If you run `gem install apex` without cmark-gfm installed, the build will fail with a clear error message and the same installation instructions.
+If you run `gem install apex-ruby` without cmark-gfm installed, the build will fail with a clear error message and the same installation instructions.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "apex"
+gem "apex-ruby"
 ```
 
 And then execute:
@@ -35,7 +35,7 @@ bundle install
 Or install it yourself as:
 
 ```sh
-gem install apex
+gem install apex-ruby
 ```
 
 ## Usage
@@ -109,7 +109,7 @@ bundle exec rake install
 
 This will:
 
-1. Build `pkg/apex-<version>.gem`
+1. Build `pkg/apex-ruby-<version>.gem`
 2. Run `gem install` for each Ruby reported by `mise ls ruby`.
 
 ## License

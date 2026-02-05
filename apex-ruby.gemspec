@@ -1,7 +1,7 @@
 require_relative "lib/apex/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = 'apex'
+  spec.name          = 'apex-ruby'
   spec.version       = Apex::VERSION
   spec.authors       = ['Brett Terpstra']
   spec.email         = ['me@brettterpstra.com']
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(__dir__) do
     Dir[
       'README.md',
-      'apex.gemspec',
+      'apex-ruby.gemspec',
       'lib/**/*.rb',
       'ext/**/*.{c,h,rb}',
       'ext/apex_ext/apex_src/**/*'

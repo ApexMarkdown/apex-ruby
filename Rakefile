@@ -3,7 +3,7 @@ require "rake/clean"
 require_relative 'lib/apex/version'
 
 PKG_DIR   = File.expand_path('pkg', __dir__)
-GEM_NAME  = "apex-#{Apex::VERSION}.gem"
+GEM_NAME  = "apex-ruby-#{Apex::VERSION}.gem"
 GEM_PATH  = File.join(PKG_DIR, GEM_NAME)
 
 directory PKG_DIR
@@ -34,7 +34,7 @@ task default: :test
 
 desc 'Build gem package'
 task package: PKG_DIR do
-  sh 'gem build apex.gemspec'
+  sh 'gem build apex-ruby.gemspec'
   mv GEM_NAME, PKG_DIR
 end
 

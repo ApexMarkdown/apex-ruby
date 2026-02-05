@@ -58,7 +58,7 @@ CMARK_NOT_FOUND_MSG = <<~MSG
   -------------------------------------------------------------------------------
 
   This gem requires cmark-gfm to be installed before you can build the native
-  extension. Install it for your system, then run `gem install apex` again.
+  extension. Install it for your system, then run `gem install apex-ruby` again.
 
   macOS (Homebrew):
     brew install cmark-gfm

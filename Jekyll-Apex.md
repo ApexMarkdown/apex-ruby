@@ -11,7 +11,7 @@ You can use the [apex](https://github.com/ApexMarkdown/apex-ruby) gem as Jekyll'
 In your Jekyll project's `Gemfile`:
 
 ```ruby
-gem "apex"
+gem "apex-ruby"
 ```
 
 Then run:
