@@ -1,0 +1,3 @@
+[submodule "ext/apex_ext/apex_src"]
+	path = ext/apex_ext/apex_src
+	url = git@github.com:ApexMarkdown/apex.git
