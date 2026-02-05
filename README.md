@@ -89,6 +89,10 @@ doc = Apex::Document.new(text, mode: :gfm, enable_tables: true)
 html = doc.to_html
 ```
 
+### Jekyll
+
+You can use Apex as Jekyll’s Markdown converter instead of Kramdown via a custom converter plugin. See **[Jekyll-Apex.md](Jekyll-Apex.md)** for step-by-step instructions. *That integration is currently untested and documented as a placeholder; feedback from anyone willing to try it is welcome at [ApexMarkdown/apex-ruby/issues](https://github.com/ApexMarkdown/apex-ruby/issues).*
+
 ## Development
 
 To run the test suite:
