@@ -110,6 +110,8 @@ options_from_hash(VALUE h)
   set_bool(h, "github_pre_lang", &o.github_pre_lang);
   set_bool(h, "standalone",      &o.standalone);
   set_bool(h, "pretty",          &o.pretty);
+  set_bool(h, "xhtml",           &o.xhtml);
+  set_bool(h, "strict_xhtml",    &o.strict_xhtml);
   set_cstr(h, "document_title",  &o.document_title);
 
   /* Line break handling */
