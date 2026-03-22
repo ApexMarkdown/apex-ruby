@@ -157,6 +157,10 @@ options_from_hash(VALUE h)
   /* Emoji options */
   set_bool(h, "enable_emoji_autocorrect", &o.enable_emoji_autocorrect);
 
+  /* Terminal output (optional; defaults come from apex_options_default) */
+  set_bool(h, "terminal_inline_images", &o.terminal_inline_images);
+  set_int (h, "terminal_image_width",   &o.terminal_image_width);
+
   /* Syntax highlighting options */
   set_cstr(h, "code_highlighter",    &o.code_highlighter);
   set_bool(h, "code_line_numbers",   &o.code_line_numbers);
