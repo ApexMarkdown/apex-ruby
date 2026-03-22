@@ -6,7 +6,7 @@ module Apex
   # via the C API once bound.
   module Version
     # Current gem version.
-    VERSION = "1.0.7"
+    VERSION = "1.0.8"
   end
 
   # Shortcut to gem version string.
