@@ -100,4 +100,39 @@ end
 
 require_cmark_gfm!
 
+# ---- libyaml (optional, enables nested YAML front matter) -----------------
+have_libyaml = false
+if pkg_config('yaml-0.1') || pkg_config('yaml')
+  have_libyaml = true
+elsif have_header('yaml.h') && have_library('yaml')
+  have_libyaml = true
+else
+  # Homebrew libyaml without pkg-config in some setups
+  brew_yaml = `brew --prefix libyaml 2>/dev/null`.strip
+  unless brew_yaml.empty?
+    yaml_inc = File.join(brew_yaml, 'include')
+    yaml_lib = File.join(brew_yaml, 'lib')
+    if File.exist?(File.join(yaml_inc, 'yaml.h'))
+      $INCFLAGS << " -I#{yaml_inc}"
+      $LDFLAGS << " -L#{yaml_lib}"
+      if have_library('yaml')
+        have_libyaml = true
+        if RbConfig::CONFIG['host_os'].to_s.include?('darwin')
+          $LDFLAGS << " -Wl,-rpath,#{yaml_lib}"
+        end
+      end
+    end
+  end
+end
+
+if have_libyaml
+  $defs << ' -DAPEX_HAVE_LIBYAML'
+  puts 'libyaml: enabled (nested YAML front matter)'
+else
+  puts 'libyaml: not found (using Apex simple YAML front-matter parser)'
+end
+
+# Apex sources include "extensions/...." from the src/ tree
+$INCFLAGS << " -I#{apex_srcdir}"
+
 create_makefile('apex_ext/apex_ext')

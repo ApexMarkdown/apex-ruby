@@ -3,8 +3,10 @@
 Ruby bindings for the [Apex](https://github.com/ApexMarkdown/apex) unified Markdown processor.
 
 Apex is a C library that supports CommonMark, GFM, MultiMarkdown, Kramdown, and a number of
-Marked-specific extensions. This gem vendors the Apex sources and exposes a small, kramdown-style
-Ruby API for converting Markdown to HTML.
+Marked-specific extensions. This gem vendors the Apex sources (currently the **1.1.x** library)
+and exposes a small, kramdown-style Ruby API for converting Markdown to HTML.
+
+Query the underlying C library version with `Apex::Native.version`.
 
 ## Requirements
 
@@ -58,11 +60,20 @@ html = Apex::Document.markdown_to_html(text, mode: :gfm)          # or :github
 html = Apex::Document.markdown_to_html(text, mode: :multimarkdown) # or :mmd
 html = Apex::Document.markdown_to_html(text, mode: :commonmark)   # or :cmark
 html = Apex::Document.markdown_to_html(text, mode: :kramdown)
+html = Apex::Document.markdown_to_html(text, mode: :quarto)
 ```
+
+Mode selection uses `apex_options_for_mode`, so unified/MMD/kramdown defaults match the CLI (including YAML front-matter extraction). Document front matter is applied to options; explicit keyword arguments override front matter.
+
+### Metadata / YAML front matter
+
+In `:unified`, `:multimarkdown`, and `:kramdown`, YAML/MMD/Pandoc metadata at the top of the document is **extracted and removed** from the Markdown before rendering (so it does not appear as an `<hr>` plus leftover text). In `:gfm` and `:commonmark`, front matter is left in the document and typically renders as a horizontal rule.
+
+There is no separate `enable_metadata` flag. `strip_metadata` is accepted for compatibility but is unused by the C library; stripping is controlled by mode as above.
 
 ### Options
 
-Any additional keyword arguments are mapped directly to the underlying `apex_options` struct
+Any additional keyword arguments are mapped to the underlying `apex_options` struct
 defined in `apex.h`. For example:
 
 ```ruby
@@ -73,6 +84,9 @@ html = Apex::Document.markdown_to_html(
   enable_footnotes: true,
   generate_header_ids: true,
   relaxed_tables: true,
+  enable_indices: true,
+  concordance: "terms.tsv",          # or concordance_files: ["a.tsv", "b.tsv"]
+  bibliography: "refs.bib",          # or bibliography_files: [...]
   wikilink_extension: "html"
 )
 ```
