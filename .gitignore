@@ -1,0 +1,11 @@
+/pkg/
+*.gem
+.DS_Store
+ext/apex_ext/Makefile
+ext/apex_ext/extconf.h
+ext/apex_ext/mkmf.log
+ext/apex_ext/cmark_*.c
+ext/apex_ext/*.o
+ext/apex_ext/*.bundle
+ext/apex_ext/*.so
+ext/apex_ext/*.dSYM/

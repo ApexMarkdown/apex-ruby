@@ -8,7 +8,8 @@ GEM_PATH  = File.join(PKG_DIR, GEM_NAME)
 
 directory PKG_DIR
 
-CLEAN.include('ext/**/Makefile', 'ext/**/*.o', 'ext/**/*.so', 'ext/**/*.bundle')
+CLEAN.include('ext/apex_ext/Makefile', 'ext/apex_ext/*.o', 'ext/apex_ext/*.so', 'ext/apex_ext/*.bundle',
+              'ext/apex_ext/cmark_*.c', 'ext/apex_ext/mkmf.log', 'ext/apex_ext/extconf.h')
 CLOBBER.include(PKG_DIR)
 
 desc 'Compile native extension'
@@ -21,13 +22,7 @@ end
 
 desc 'Run test suite'
 task test: :compile do
-  cmark_prefix = `brew --prefix cmark-gfm 2>/dev/null`.strip
-  env = ENV.to_h
-  unless cmark_prefix.empty?
-    lib = "#{cmark_prefix}/lib"
-    env['DYLD_LIBRARY_PATH'] = [lib, ENV['DYLD_LIBRARY_PATH']].compact.join(File::PATH_SEPARATOR)
-  end
-  sh env, 'ruby -Itest -rminitest/autorun test/test_apex.rb'
+  sh 'ruby -Ilib -Itest -rminitest/autorun test/test_apex.rb'
 end
 
 task default: :test

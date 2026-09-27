@@ -13,15 +13,26 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 3.0'
 
+  # Only the tracked Apex and cmark-gfm sources the extension build needs;
+  # the rest of the apex checkout (tests, docs, build dirs, logs) stays out.
+  apex_src_dir = File.join(__dir__, 'ext', 'apex_ext', 'apex_src')
+  apex_src_pattern = %r{\A(?:LICENSE|include/.+\.(?:h|modulemap)|src/.+\.[ch]|PackageSupport/cmark-gfm/[^/]+\.h|
+                          vendor/cmark-gfm/(?:COPYING|src/[^/]+\.(?:c|h|inc)|extensions/[^/]+\.[ch]))\z}x
+  apex_src_files = Dir.chdir(apex_src_dir) do
+    tracked = `git ls-files -z --recurse-submodules 2>/dev/null`.split("\0")
+    tracked = Dir.glob('**/*') if tracked.empty?
+    tracked.grep(apex_src_pattern)
+  end
+
   spec.files = Dir.chdir(__dir__) do
     Dir[
       'README.md',
       'apex-ruby.gemspec',
       'lib/**/*.rb',
-      'ext/**/*.{c,h,rb}',
-      'ext/apex_ext/apex_src/**/*'
+      'ext/apex_ext/apex_ext.c',
+      'ext/apex_ext/extconf.rb'
     ]
-  end
+  end + apex_src_files.map { |f| "ext/apex_ext/apex_src/#{f}" }
 
   spec.require_paths = ['lib']
   spec.extensions    = ['ext/apex_ext/extconf.rb']

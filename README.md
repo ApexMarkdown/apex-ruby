@@ -10,15 +10,9 @@ Query the underlying C library version with `Apex::Native.version`.
 
 ## Requirements
 
-Before installing the gem, you must have the **cmark-gfm** C library available on your system. The gem compiles a native extension that links against it.
+The gem compiles a native extension, so you need a C compiler (Xcode Command Line Tools on macOS, `build-essential` or equivalent on Linux). Apex's patched copy of [cmark-gfm](https://github.com/ApexMarkdown/cmark-gfm) is bundled and compiled into the extension; a system cmark-gfm is not needed and is not used.
 
-- **macOS (Homebrew):**  
-  ```sh
-  brew install cmark-gfm
-  ```
-- **Other platforms:** Install the `cmark-gfm` package for your distribution and ensure development headers and `pkg-config` are available. See [cmark-gfm](https://github.com/github/cmark-gfm) for build instructions.
-
-If you run `gem install apex-ruby` without cmark-gfm installed, the build will fail with a clear error message and the same installation instructions.
+libyaml is optional. If it is installed (e.g. `brew install libyaml`), Apex uses it for nested YAML front matter; otherwise it falls back to its simple key: value parser.
 
 ## Installation
 
