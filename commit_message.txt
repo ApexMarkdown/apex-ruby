@@ -1,0 +1,12 @@
+Bring gem to Apex 1.1 library parity
+
+@changed **Vendored Apex C library** updated from 1.0.4 to 1.1.20 (definition-list/fence fixes, TextIndex, concordance, metadata file options, and related pipeline improvements)
+@changed **Mode defaults** now use `apex_options_for_mode`, so `:unified` matches CLI behavior (YAML front matter extracted, indices enabled, etc.)
+@new **Document front matter applied to options** before render, with explicit kwargs still winning
+@new **Indices / TextIndex / concordance** kwargs (`enable_indices`, `concordance` / `concordance_files`, and related flags)
+@new **Citations** kwargs (`bibliography` / `bibliography_files`, `csl_file`, and related flags)
+@new **Additional feature flags** including critic markup, grid tables, py/quarto callouts, embed images, and related options
+@new **`Apex::Native.version`** reports the underlying Apex C library version
+@improved **Optional libyaml** link when available for nested YAML front matter
+
+Bump gem version to 1.0.19. Add regression tests for YAML stripping, DL+fence, TextIndex defaults, and concordance.
