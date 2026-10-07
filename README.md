@@ -6,7 +6,15 @@ Apex is a C library that supports CommonMark, GFM, MultiMarkdown, Kramdown, and 
 Marked-specific extensions. This gem vendors the Apex sources (currently the **1.1.x** library)
 and exposes a small, kramdown-style Ruby API for converting Markdown to HTML.
 
-Query the underlying C library version with `Apex::Native.version`.
+The gem has its own version number, separate from the Apex library it bundles. Each gem
+release ships the latest Apex release, and `Apex::Native.version` reports which one you have:
+
+```ruby
+require "apex"
+
+Apex::VERSION         # => "1.0.34" (the gem)
+Apex::Native.version  # => "1.1.36" (the bundled Apex library)
+```
 
 ## Requirements
 
