@@ -6,7 +6,7 @@ module Apex
   # via Apex::Native.version.
   module Version
     # Current gem version.
-    VERSION = "1.0.37"
+    VERSION = "1.0.38"
   end
 
   # Shortcut to gem version string.
