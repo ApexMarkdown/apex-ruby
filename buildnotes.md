@@ -55,3 +55,36 @@ git push
 ```
 
 @include(release gem)
+
+Point the markdownsharing Rails app at the gem that was just published. The next bundle uses that version. This does not commit or deploy the app.
+
+```run Point markdownsharing at this gem
+#!/bin/bash
+set -euo pipefail
+
+VER=$(ruby -e 'text = File.read("lib/apex/version.rb"); print text[/VERSION = "([0-9.]+)"/, 1]')
+APP="$HOME/Sites/dev/markdownsharing"
+
+ruby - "$APP/Gemfile" "$VER" <<'RUBY'
+path, ver = ARGV
+text = File.read(path)
+line = %(gem "apex-ruby", "~> #{ver}")
+unless text.match?(/^gem "apex-ruby", /)
+  abort "markdownsharing Gemfile has no apex-ruby line"
+end
+text.sub!(/^gem "apex-ruby", ".*"$/, line)
+File.write(path, text)
+RUBY
+
+cd "$APP"
+for attempt in 1 2 3 4 5 6; do
+	if bundle update apex-ruby; then
+		echo "markdownsharing Gemfile is now apex-ruby ~> $VER"
+		exit 0
+	fi
+	echo "Waiting for apex-ruby $VER on RubyGems (attempt $attempt)..."
+	sleep 10
+done
+echo "apex-ruby $VER did not install from RubyGems" >&2
+exit 1
+```
